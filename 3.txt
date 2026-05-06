@@ -1,0 +1,179 @@
+# Descriptive Statistics on Iris Dataset
+
+# Step 1: Import Libraries
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Step 2: Load Dataset
+df = sns.load_dataset('iris')
+
+print("First 5 Rows of Dataset:\n")
+print(df.head())
+
+# Step 3: Basic Information
+print("\nDataset Info:\n")
+print(df.info())
+
+# Step 4: Descriptive Statistics
+
+print("\nMean:\n")
+print(df.mean(numeric_only=True))
+
+print("\nMedian:\n")
+print(df.median(numeric_only=True))
+
+print("\nMinimum Values:\n")
+print(df.min(numeric_only=True))
+
+print("\nMaximum Values:\n")
+print(df.max(numeric_only=True))
+
+print("\nVariance:\n")
+print(df.var(numeric_only=True))
+
+print("\nStandard Deviation:\n")
+print(df.std(numeric_only=True))
+
+# Step 5: Summary Statistics
+print("\nFull Summary (describe):\n")
+print(df.describe())
+
+# Step 6: Group By Species
+grouped = df.groupby('species')
+
+print("\nSpecies-wise Mean:\n")
+print(grouped.mean())
+
+print("\nDetailed Species-wise Statistics:\n")
+print(grouped.agg(['mean', 'median', 'min', 'max', 'std', 'var']))
+
+# Step 7: Visualization (Optional)
+
+# Boxplot for Petal Length by Species
+plt.figure()
+sns.boxplot(x='species', y='petal_length', data=df)
+plt.title("Petal Length Distribution by Species")
+plt.show()
+
+# Histogram for Sepal Length
+plt.figure()
+sns.histplot(df['sepal_length'], kde=True)
+plt.title("Sepal Length Distribution")
+plt.show()
+
+# Step 8: Conclusion
+print("\nConclusion:")
+print("Setosa has smallest petals and low variation.")
+print("Versicolor has moderate values.")
+print("Virginica has largest petals and higher variation.")
+
+
+
+
+Q1: What is descriptive statistics?
+
+👉 It is the method of summarizing and describing data using measures like mean, median, variance, etc.
+
+Q2: What is the mean?
+
+👉 Mean is the average of all values.
+Formula: Sum of values / Number of values.
+
+Q3: What is the median?
+
+👉 Median is the middle value when data is arranged in order.
+
+Q4: Difference between mean and median?
+
+👉 Mean is affected by outliers, while median is not.
+
+Q5: What is variance?
+
+👉 Variance measures how far data points are spread from the mean.
+
+Q6: What is standard deviation?
+
+👉 It is the square root of variance and shows data dispersion.
+
+Q7: What are min and max?
+
+👉 Minimum is the smallest value, maximum is the largest value.
+
+🔹 Dataset-Based Questions
+Q8: What is the Iris dataset?
+
+👉 It is a dataset containing flower measurements used for analysis and classification.
+
+Q9: How many features are in the dataset?
+
+👉 4 features:
+
+Sepal Length
+Sepal Width
+Petal Length
+Petal Width
+Q10: What is the target variable?
+
+👉 Species (Setosa, Versicolor, Virginica)
+
+Q11: How many classes are present?
+
+👉 3 classes.
+
+🔹 Practical / Coding Questions
+Q12: Which function gives summary statistics?
+
+👉 df.describe()
+
+Q13: How do you calculate mean in Python?
+
+👉 df.mean()
+
+Q14: How do you group data by species?
+
+👉 df.groupby('species')
+
+Q15: Why do we use groupby?
+
+👉 To analyze data category-wise (e.g., species-wise comparison).
+
+Q16: How to calculate variance and standard deviation?
+
+👉
+
+Variance → df.var()
+Std Dev → df.std()
+🔹 Analysis-Based Questions
+Q17: Which species has smallest petals?
+
+👉 Setosa
+
+Q18: Which species has largest petals?
+
+👉 Virginica
+
+Q19: Which species shows more variation?
+
+👉 Virginica
+
+Q20: Why is Setosa easily separable?
+
+👉 Because its petal size is very small and distinct.
+
+🔹 Advanced (Examiner Favorite)
+Q21: What are outliers?
+
+👉 Values that are far away from normal data distribution.
+
+Q22: Does mean get affected by outliers?
+
+👉 Yes
+
+Q23: Which measure is best for skewed data?
+
+👉 Median
+
+Q24: What is the use of descriptive statistics?
+
+👉 To understand data distribution and patterns before a

@@ -1,0 +1,179 @@
+# Import libraries
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Load dataset
+iris = sns.load_dataset('iris')
+
+# -----------------------------
+# Display Data
+# -----------------------------
+print("\nFirst 5 Rows:\n")
+print(iris.head())
+
+print("\nDataset Info:\n")
+print(iris.info())
+
+print("\nStatistical Summary:\n")
+print(iris.describe())
+
+print("\nFeature Types:\n")
+print(iris.dtypes)
+
+# -----------------------------
+# Histograms
+# -----------------------------
+iris.hist(figsize=(10,8))
+plt.suptitle("Histograms of Iris Features")
+plt.show()
+
+# -----------------------------
+# Boxplot (All Features)
+# -----------------------------
+plt.figure(figsize=(10,6))
+sns.boxplot(data=iris)
+plt.title("Boxplot of Iris Features")
+plt.show()
+
+# -----------------------------
+# Boxplot (Species-wise)
+# -----------------------------
+plt.figure(figsize=(10,6))
+sns.boxplot(x='species', y='sepal_length', data=iris)
+plt.title("Sepal Length vs Species")
+plt.show()
+
+plt.figure(figsize=(10,6))
+sns.boxplot(x='species', y='petal_length', data=iris)
+plt.title("Petal Length vs Species")
+plt.show()
+
+# -----------------------------
+# Pairplot
+# -----------------------------
+sns.pairplot(iris, hue='species')
+plt.show()
+
+# -----------------------------
+# Observations
+# -----------------------------
+print("\nObservations:")
+print("1. Sepal features show near normal distribution.")
+print("2. Petal features show clear separation between species.")
+print("3. Sepal width contains some outliers.")
+print("4. Setosa species is easily distinguishable.")
+
+
+
+What is data visualization?
+
+Answer:
+Data visualization is the graphical representation of data using charts like histograms, boxplots, and scatter plots to understand patterns, trends, and relationships.
+
+2. What is the Iris Dataset?
+
+Answer:
+It is a dataset containing measurements of iris flowers used for classification. It includes 150 samples of three species: Setosa, Versicolor, and Virginica.
+
+3. How many features are present in the dataset?
+
+Answer:
+There are 5 features:
+
+4 numerical features
+1 categorical feature (species)
+4. Name the numerical features.
+
+Answer:
+
+Sepal Length
+Sepal Width
+Petal Length
+Petal Width
+5. What type of variable is “species”?
+
+Answer:
+Categorical variable.
+
+🔹 Histogram Related
+6. What is a histogram?
+
+Answer:
+A histogram is a graphical representation showing the frequency distribution of numerical data.
+
+7. What did you observe from histograms?
+
+Answer:
+
+Sepal features are approximately normally distributed
+Petal features show clear grouping and separation
+8. Why are histograms useful?
+
+Answer:
+They help understand data distribution, skewness, and frequency.
+
+🔹 Boxplot Related
+9. What is a boxplot?
+
+Answer:
+A boxplot displays median, quartiles, and outliers of data.
+
+10. What are outliers?
+
+Answer:
+Outliers are extreme values that differ significantly from other data points.
+
+11. Which feature contains outliers in this dataset?
+
+Answer:
+Sepal width.
+
+12. Why are boxplots important?
+
+Answer:
+They help visualize spread, central tendency, and detect outliers.
+
+🔹 Comparison & Analysis
+13. Which features are best for classification?
+
+Answer:
+Petal length and petal width.
+
+14. Which species is easily separable?
+
+Answer:
+Setosa.
+
+15. Why is Setosa easily separable?
+
+Answer:
+Because its petal measurements are significantly different from the other species.
+
+16. What is a pairplot?
+
+Answer:
+A pairplot shows pairwise relationships between features using scatter plots.
+
+17. What did you observe from pairplot?
+
+Answer:
+
+Clear separation of Setosa
+Overlap between Versicolor and Virginica
+🔹 Advanced / Examiner Questions
+18. What is skewness?
+
+Answer:
+It measures the asymmetry of the data distribution.
+
+19. What is the difference between histogram and boxplot?
+
+Answer:
+
+Histogram → shows distribution (frequency)
+Boxplot → shows spread and outliers
+20. Why is data visualization important in machine learning?
+
+Answer:
+It helps understand data, detect patterns, identify outliers, and choose important features before building models.

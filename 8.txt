@@ -1,0 +1,158 @@
+# ================================
+# Data Visualization I - Titanic Dataset
+# ================================
+
+# -------------------------------
+# Cell 1: Import Libraries
+# -------------------------------
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# -------------------------------
+# Cell 2: Load Dataset
+# -------------------------------
+titanic = sns.load_dataset('titanic')
+print("First 5 Records:\n")
+print(titanic.head())
+
+# -------------------------------
+# Cell 3: Dataset Information
+# -------------------------------
+print("\nDataset Info:\n")
+print(titanic.info())
+
+# -------------------------------
+# Cell 4: Check Missing Values
+# -------------------------------
+print("\nMissing Values:\n")
+print(titanic.isnull().sum())
+
+# -------------------------------
+# Cell 5: Histogram for Fare Distribution
+# -------------------------------
+plt.figure(figsize=(8,5))
+sns.histplot(titanic['fare'], bins=30, kde=True)
+
+plt.title("Fare Distribution in Titanic Dataset")
+plt.xlabel("Fare")
+plt.ylabel("Frequency")
+
+plt.show()
+
+# -------------------------------
+# Cell 6: Skewness Calculation
+# -------------------------------
+skewness = titanic['fare'].skew()
+print("\nSkewness of Fare:", skewness)
+
+# -------------------------------
+# Cell 7: Interpretation
+# -------------------------------
+if skewness > 0:
+    print("The distribution is Positively Skewed (Right Skewed)")
+elif skewness < 0:
+    print("The distribution is Negatively Skewed (Left Skewed)")
+else:
+    print("The distribution is Symmetrical")
+
+# -------------------------------
+# Cell 8: Boxplot for Outliers
+# -------------------------------
+plt.figure(figsize=(6,4))
+sns.boxplot(x=titanic['fare'])
+
+plt.title("Boxplot of Fare (Outlier Detection)")
+plt.show()
+
+# -------------------------------
+# Final Conclusion (Output)
+# -------------------------------
+print("\nConclusion:")
+print("- Most passengers paid low fares")
+print("- Few passengers paid very high fares")
+print("- Fare distribution is positively skewed")
+print("- Outliers are present in the dataset")
+
+
+
+. What is the Titanic Dataset?
+
+👉 It is a dataset containing passenger details like age, gender, class, fare, and survival information from the Titanic ship.
+
+2. What is Seaborn?
+
+👉 Seaborn is a Python library used for creating attractive and informative statistical visualizations.
+
+3. Why do we use Seaborn instead of Matplotlib?
+
+👉 Seaborn provides:
+
+Better design (more attractive graphs)
+Built-in themes
+Easy plotting functions
+4. What is a histogram?
+
+👉 A histogram is a graph that shows the distribution of numerical data using bins.
+
+5. What is meant by distribution?
+
+👉 Distribution shows how data values are spread across a range.
+
+📊 Concept-Based Questions
+6. What pattern is observed in Fare distribution?
+
+👉 Most passengers paid low fares, and few paid high fares.
+
+7. What is skewness?
+
+👉 Skewness measures the asymmetry of data distribution.
+
+8. What type of skewness is present in Fare?
+
+👉 Positive skewness (right-skewed).
+
+9. What does positive skewness mean?
+
+👉 Data is concentrated on the left side with a long tail on the right.
+
+10. Why is Fare positively skewed?
+
+👉 Because:
+
+Majority passengers paid low fares
+Few wealthy passengers paid very high fares
+📈 Graph-Based Questions
+11. What does the long right tail indicate?
+
+👉 Presence of outliers or extreme high values.
+
+12. What is KDE in histogram?
+
+👉 KDE (Kernel Density Estimation) is a smooth curve that represents data distribution.
+
+13. Which plot is used to detect outliers?
+
+👉 Boxplot.
+
+14. What are outliers?
+
+👉 Values that are significantly different from other data points.
+
+⚙️ Technical Questions
+15. How do you calculate skewness in Python?
+
+👉 Using:
+
+titanic['fare'].skew()
+16. What happens if skewness = 0?
+
+👉 Data is perfectly symmetrical (normal distribution).
+
+17. What if skewness < 0?
+
+👉 Data is negatively skewed (left-skewed).
+
+18. What is the use of bins in histogram?
+
+👉 Bins divide data into intervals to show frequency distribution.

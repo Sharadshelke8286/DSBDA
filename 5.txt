@@ -1,0 +1,202 @@
+# Logistic Regression on Social Network Ads Dataset
+
+# Step 1: Import Libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import confusion_matrix
+
+# Step 2: Load Dataset
+dataset = pd.read_csv('Social_Network_Ads.csv')
+
+# Independent & Dependent variables
+X = dataset.iloc[:, [2, 3]].values   # Age, Salary
+y = dataset.iloc[:, 4].values        # Purchased
+
+# Step 3: Train-Test Split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.25, random_state=0
+)
+
+# Step 4: Feature Scaling (IMPORTANT)
+sc = StandardScaler()
+X_train = sc.fit_transform(X_train)
+X_test = sc.transform(X_test)
+
+# Step 5: Train Logistic Regression Model
+model = LogisticRegression()
+model.fit(X_train, y_train)
+
+# Step 6: Predictions
+y_pred = model.predict(X_test)
+
+# Step 7: Confusion Matrix
+cm = confusion_matrix(y_test, y_pred)
+
+print("Confusion Matrix:")
+print(cm)
+
+# Extract values
+TN, FP, FN, TP = cm.ravel()
+
+# Step 8: Metrics Calculation
+accuracy = (TP + TN) / (TP + TN + FP + FN)
+error_rate = 1 - accuracy
+precision = TP / (TP + FP)
+recall = TP / (TP + FN)
+
+# Step 9: Print Results
+print("\nPerformance Metrics:")
+print("Accuracy     :", accuracy)
+print("Error Rate   :", error_rate)
+print("Precision    :", precision)
+print("Recall       :", recall)
+
+
+1. What is Logistic Regression?
+
+Ans:
+Logistic Regression is a supervised learning classification algorithm used to predict binary outcomes (0 or 1).
+
+Q2. Why is it called “Regression” if it is classification?
+
+Ans:
+Because it uses a regression equation to calculate probability, but the output is used for classification.
+
+Q3. What type of problems does it solve?
+
+Ans:
+Binary classification problems (Yes/No, True/False).
+
+🔹 Concept-Based Questions
+Q4. What is the Sigmoid Function?
+
+Ans:
+A function that converts input into probability (0 to 1):
+
+1+e
+−z
+1
+	​
+
+Q5. What is the role of threshold (0.5)?
+
+Ans:
+
+If probability ≥ 0.5 → Class = 1
+If probability < 0.5 → Class = 0
+Q6. What is the decision boundary?
+
+Ans:
+A line/curve that separates different classes in the feature space.
+
+🔹 Dataset-Based Questions
+Q7. Which features are used in Social Network Ads dataset?
+
+Ans:
+
+Age
+Estimated Salary
+Q8. What is the target variable?
+
+Ans:
+Purchased (0 = No, 1 = Yes)
+
+🔹 Implementation Questions
+Q9. Why do we split the dataset?
+
+Ans:
+To evaluate model performance on unseen data.
+
+Q10. Why is feature scaling required?
+
+Ans:
+Because features have different ranges; scaling improves model accuracy and convergence.
+
+Q11. Which scaler is used?
+
+Ans:
+StandardScaler
+
+🔹 Confusion Matrix Questions
+Q12. What is a Confusion Matrix?
+
+Ans:
+A table used to evaluate classification performance.
+
+Q13. Define TP, TN, FP, FN.
+
+Ans:
+
+TP → Correct positive prediction
+TN → Correct negative prediction
+FP → Incorrect positive prediction
+FN → Incorrect negative prediction
+🔹 Metrics Questions
+Q14. What is Accuracy?
+
+Ans:
+
+Total
+TP+TN
+	​
+
+Q15. What is Precision?
+
+Ans:
+
+TP+FP
+TP
+	​
+
+Q16. What is Recall?
+
+Ans:
+
+TP+FN
+TP
+	​
+
+Q17. What is Error Rate?
+
+Ans:
+
+1−Accuracy
+🔹 Advanced Questions
+Q18. What happens if data is not scaled?
+
+Ans:
+Model performance may decrease and convergence becomes slower.
+
+Q19. Difference between Linear and Logistic Regression?
+
+Ans:
+
+Linear → Predicts continuous values
+Logistic → Predicts probabilities (classification)
+Q20. Can Logistic Regression handle multi-class problems?
+
+Ans:
+Yes, using One-vs-Rest (OvR) method.
+
+🔹 Practical-Based Questions
+Q21. Why use Logistic Regression for this dataset?
+
+Ans:
+Because the output is binary (Purchased / Not Purchased).
+
+Q22. What is overfitting?
+
+Ans:
+When model performs well on training data but poorly on test data.
+
+Q23. How to improve model performance?
+
+Ans:
+
+Feature scaling
+More data

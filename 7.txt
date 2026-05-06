@@ -1,0 +1,219 @@
+# Text Analytics Practical
+
+import nltk
+import string
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+from nltk.stem import PorterStemmer, WordNetLemmatizer
+from nltk import pos_tag
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Download required resources (run once)
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('averaged_perceptron_tagger')
+
+# Sample Text
+text = "Text analytics is the process of analyzing textual data using machine learning techniques."
+
+print("\nOriginal Text:\n", text)
+
+# -------------------------------
+# 1. Tokenization
+# -------------------------------
+tokens = word_tokenize(text)
+print("\nTokens:\n", tokens)
+
+# -------------------------------
+# 2. POS Tagging
+# -------------------------------
+pos_tags = pos_tag(tokens)
+print("\nPOS Tags:\n", pos_tags)
+
+# -------------------------------
+# 3. Stopword Removal
+# -------------------------------
+stop_words = set(stopwords.words('english'))
+
+filtered_tokens = [word for word in tokens if word.lower() not in stop_words and word not in string.punctuation]
+print("\nAfter Stopword Removal:\n", filtered_tokens)
+
+# -------------------------------
+# 4. Stemming
+# -------------------------------
+stemmer = PorterStemmer()
+stemmed_words = [stemmer.stem(word) for word in filtered_tokens]
+print("\nStemmed Words:\n", stemmed_words)
+
+# -------------------------------
+# 5. Lemmatization
+# -------------------------------
+lemmatizer = WordNetLemmatizer()
+lemmatized_words = [lemmatizer.lemmatize(word) for word in filtered_tokens]
+print("\nLemmatized Words:\n", lemmatized_words)
+
+# -------------------------------
+# 6. TF-IDF Calculation
+# -------------------------------
+documents = [
+    "Text analytics is useful",
+    "Machine learning improves analytics",
+    "Text data is important"
+]
+
+vectorizer = TfidfVectorizer()
+tfidf_matrix = vectorizer.fit_transform(documents)
+
+print("\nTF-IDF Feature Names:\n", vectorizer.get_feature_names_out())
+print("\nTF-IDF Matrix:\n", tfidf_matrix.toarray())
+
+
+
+
+
+. What is Text Analytics?
+
+Answer:
+Text Analytics is the process of extracting meaningful information from textual data using NLP techniques.
+
+2. What is NLP?
+
+Answer:
+Natural Language Processing is a field of AI that enables computers to understand and process human language.
+
+3. What is Tokenization?
+
+Answer:
+Tokenization is the process of splitting text into smaller units like words or sentences.
+
+4. Types of Tokenization?
+
+Answer:
+
+Word Tokenization
+Sentence Tokenization
+🔸 POS Tagging
+5. What is POS Tagging?
+
+Answer:
+Assigning grammatical categories (noun, verb, adjective, etc.) to each word in a sentence.
+
+6. Give examples of POS tags.
+
+Answer:
+
+NN → Noun
+VB → Verb
+JJ → Adjective
+🔸 Stopwords
+7. What are Stopwords?
+
+Answer:
+Common words (like is, the, and) that do not add significant meaning and are removed during processing.
+
+8. Why remove stopwords?
+
+Answer:
+To reduce data size and improve processing efficiency.
+
+🔸 Stemming & Lemmatization
+9. What is Stemming?
+
+Answer:
+Reducing words to their root form by cutting suffixes.
+Example: playing → play
+
+10. What is Lemmatization?
+
+Answer:
+Converting words into their meaningful base form using vocabulary.
+Example: better → good
+
+11. Difference between Stemming and Lemmatization?
+
+Answer:
+
+Stemming	Lemmatization
+Faster	Slower
+May give incorrect words	Gives meaningful words
+Uses rules	Uses dictionary
+🔸 TF & IDF
+12. What is Term Frequency (TF)?
+
+Answer:
+Number of times a word appears in a document.
+
+13. What is Inverse Document Frequency (IDF)?
+
+Answer:
+Measures how important a word is across all documents.
+
+14. Why use TF-IDF?
+
+Answer:
+To find important words while reducing the weight of common words.
+
+15. Difference between TF and IDF?
+
+Answer:
+
+TF	IDF
+Frequency in one document	Importance across documents
+Local measure	Global measure
+🔸 Practical Questions
+16. Which library is used for Text Analytics in Python?
+
+Answer:
+NLTK, spaCy, Scikit-learn
+
+17. What is NLTK?
+
+Answer:
+Natural Language Toolkit, a Python library for NLP tasks.
+
+18. What is TF-IDF Vectorizer?
+
+Answer:
+A tool in Scikit-learn used to convert text into numerical TF-IDF features.
+
+19. What is a Corpus?
+
+Answer:
+A collection of text documents.
+
+20. What is preprocessing?
+
+Answer:
+Cleaning and preparing text data before analysis (tokenization, stopword removal, etc.).
+
+🔸 Advanced / Tricky Questions
+21. Can stemming produce incorrect words?
+
+Answer:
+Yes, e.g., studies → studi
+
+22. Why is lemmatization better than stemming?
+
+Answer:
+Because it produces meaningful words using a dictionary.
+
+23. What is Bag of Words?
+
+Answer:
+A technique to represent text as word frequency vectors.
+
+24. What are real-world applications of Text Analytics?
+
+Answer:
+
+Chatbots
+Sentiment analysis
+Search engines
+Spam detection
+25. What is the difference between NLP and Text Analytics?
+
+Answer:
+
+NLP → broader field
+Text Analytics → application of NLP for extracting insights

@@ -1,0 +1,174 @@
+# -------------------------------------------
+# Data Wrangling Practical - Titanic Dataset
+# -------------------------------------------
+
+# 1. Import Required Libraries
+import pandas as pd
+import numpy as np
+
+# 2. Load Dataset from Web Source
+url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+df = pd.read_csv(url)
+
+print("\n--- First 5 Rows ---")
+print(df.head())
+
+# 3. Dataset Information
+print("\n--- Dataset Shape ---")
+print(df.shape)
+
+print("\n--- Column Names ---")
+print(df.columns)
+
+print("\n--- Dataset Info ---")
+print(df.info())
+
+# 4. Statistical Description
+print("\n--- Statistical Summary ---")
+print(df.describe())
+
+# 5. Handling Missing Values
+print("\n--- Missing Values Before ---")
+print(df.isnull().sum())
+
+# Fill missing Age with mean
+df['Age'].fillna(df['Age'].mean(), inplace=True)
+
+# Fill missing Embarked with mode
+df['Embarked'].fillna(df['Embarked'].mode()[0], inplace=True)
+
+# Drop Cabin column (too many missing values)
+df.drop(columns=['Cabin'], inplace=True)
+
+print("\n--- Missing Values After ---")
+print(df.isnull().sum())
+
+# 6. Data Type Conversion
+df['Age'] = df['Age'].astype(int)
+df['Fare'] = df['Fare'].astype(float)
+
+print("\n--- Data Types After Conversion ---")
+print(df.dtypes)
+
+# 7. Convert Categorical Variables to Numerical
+
+# Convert Sex (Male=0, Female=1)
+df['Sex'] = df['Sex'].map({'male': 0, 'female': 1})
+
+# One-Hot Encoding for Embarked
+df = pd.get_dummies(df, columns=['Embarked'])
+
+print("\n--- Final Processed Data ---")
+print(df.head())
+
+# Final Check
+print("\n--- Final Shape ---")
+print(df.shape)
+
+print("\n--- Final Missing Values ---")
+print(df.isnull().sum())
+
+# Optional: Save cleaned dataset
+df.to_csv("cleaned_titanic.csv", index=False)
+print("\nCleaned dataset saved as 'cleaned_titanic.csv'")
+
+1. What is Data Wrangling?
+Data wrangling is the process of cleaning, transforming, and organizing raw data into a usable format for analysis.
+
+2. Why is data preprocessing important?
+Because raw data is often incomplete, inconsistent, and noisy. Preprocessing improves data quality and model accuracy.
+
+3. What is a dataset?
+A dataset is a collection of structured data, usually in tabular form (rows and columns).
+
+4. What is the Titanic dataset?
+It is an open-source dataset containing passenger details like age, gender, fare, and survival status, used for classification problems.
+
+🔹 Dataset Understanding
+
+5. What does df.shape represent?
+It shows the number of rows and columns in the dataset.
+
+6. Difference between df.info() and df.describe()?
+
+info() → structure, data types, non-null values
+describe() → statistical summary (mean, std, min, max)
+
+7. What are features and target variables?
+
+Features → input variables (Age, Fare, etc.)
+Target → output variable (Survived)
+🔹 Missing Values
+
+8. What are missing values?
+Values that are not stored or recorded in the dataset (NaN).
+
+9. How did you handle missing values?
+
+Filled Age with mean
+Filled Embarked with mode
+Dropped Cabin column
+
+10. Why use mean/mode for filling missing values?
+
+Mean → for numerical data
+Mode → for categorical data
+🔹 Data Cleaning
+
+11. Why did you drop the Cabin column?
+Because it had too many missing values, making it unreliable.
+
+12. What is data inconsistency?
+When data values are incorrect or not in a standard format.
+
+🔹 Data Type Conversion
+
+13. Why is data type conversion required?
+To ensure correct operations and improve performance in analysis.
+
+14. Example from your code?
+Converted Age to integer and Fare to float.
+
+🔹 Categorical Encoding
+
+15. What is categorical data?
+Data that represents categories (e.g., male/female).
+
+16. What is label encoding?
+Converting categories into numerical values (male=0, female=1).
+
+17. What is one-hot encoding?
+Creating separate binary columns for each category.
+
+18. Why convert categorical to numerical?
+Machine learning models require numerical input.
+
+🔹 General Questions
+
+19. What is Pandas?
+A Python library used for data manipulation and analysis.
+
+20. What is NumPy?
+A Python library used for numerical computations.
+
+21. What is overfitting related to preprocessing?
+Poor preprocessing can lead to noisy data, causing overfitting.
+
+22. What is data transformation?
+Changing data format or scale (normalization, log transformation, etc.).
+
+🔹 Advanced (Examiner Favorite)
+
+23. What is normalization?
+Scaling data to a range (0 to 1).
+
+24. What is standardization?
+Transforming data to mean = 0 and standard deviation = 1.
+
+25. What is outlier?
+A data point that is significantly different from others.
+
+26. Methods to detect outliers?
+
+IQR (Interquartile Range)
+Z-score

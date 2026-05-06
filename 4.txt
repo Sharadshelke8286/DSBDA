@@ -1,0 +1,202 @@
+# ==========================================
+# Data Analytics I - Linear Regression
+# Boston Housing Dataset - House Price Prediction
+# ==========================================
+
+# 1. Import Libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn import metrics
+
+# 2. Load Dataset (Boston Housing - alternative method)
+url = "https://raw.githubusercontent.com/selva86/datasets/master/BostonHousing.csv"
+df = pd.read_csv(url)
+
+# 3. Display Dataset
+print("\nFirst 5 Rows:\n", df.head())
+
+# 4. Dataset Information
+print("\nShape of Dataset:", df.shape)
+print("\nStatistical Summary:\n", df.describe())
+
+# 5. Check Missing Values
+print("\nMissing Values:\n", df.isnull().sum())
+
+# 6. Define Features and Target
+X = df.drop('medv', axis=1)   # Features
+y = df['medv']                # Target (House Price)
+
+# 7. Split Dataset
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# 8. Train Linear Regression Model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# 9. Model Coefficients
+print("\nModel Coefficients:\n", model.coef_)
+print("Model Intercept:", model.intercept_)
+
+# 10. Predict House Prices
+y_pred = model.predict(X_test)
+
+print("\nSample Predictions:")
+for i in range(5):
+    print(f"Actual: {y_test.iloc[i]:.2f}  |  Predicted: {y_pred[i]:.2f}")
+
+# 11. Evaluation Metrics
+mae = metrics.mean_absolute_error(y_test, y_pred)
+mse = metrics.mean_squared_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+r2 = metrics.r2_score(y_test, y_pred)
+
+print("\nModel Evaluation:")
+print("MAE :", mae)
+print("MSE :", mse)
+print("RMSE:", rmse)
+print("R2 Score:", r2)
+
+# 12. Visualization (Actual vs Predicted)
+plt.figure()
+plt.scatter(y_test, y_pred)
+plt.xlabel("Actual Prices")
+plt.ylabel("Predicted Prices")
+plt.title("Actual vs Predicted House Prices")
+plt.show()
+
+# 13. Conclusion
+print("\nConclusion:")
+print("Linear Regression model successfully predicts house prices with reasonable accuracy.")
+
+
+
+
+Q1: What is Linear Regression?
+👉 It is a supervised learning algorithm used to predict continuous values by finding a linear relationship between input features and output.
+
+Q2: What type of problem does Linear Regression solve?
+👉 Regression problems (e.g., house price prediction).
+
+Q3: What is the main equation of Linear Regression?
+👉
+y=b
+0
+	​
+
++b
+1
+	​
+
+x
+1
+	​
+
++b
+2
+	​
+
+x
+2
+	​
+
++⋯+b
+n
+	​
+
+x
+n
+	​
+
+
+Q4: What is dependent and independent variable?
+👉 Dependent (y): Output (house price)
+👉 Independent (X): Input features (rooms, crime rate, etc.)
+
+📊 Dataset Related
+
+Q5: What is Boston Housing Dataset?
+👉 It is a dataset used to predict house prices based on features like crime rate, number of rooms, etc.
+
+Q6: What is the target variable in this dataset?
+👉 medv (Median house value)
+
+Q7: Why do we check missing values?
+👉 Missing values can affect model accuracy and lead to wrong predictions.
+
+⚙️ Model & Training
+
+Q8: Why do we split the dataset?
+👉 To train the model on one part and test it on unseen data.
+
+Q9: What is train-test split ratio used?
+👉 Commonly 80% training and 20% testing.
+
+Q10: What does model.fit() do?
+👉 It trains the model by learning the relationship between X and y.
+
+Q11: What does model.predict() do?
+👉 It predicts output values for new/unseen data.
+
+📈 Evaluation Metrics
+
+Q12: What is MAE?
+👉 Mean Absolute Error — average absolute difference between actual and predicted values.
+
+Q13: What is MSE?
+👉 Mean Squared Error — squares the errors (penalizes large errors).
+
+Q14: What is RMSE?
+👉 Square root of MSE; gives error in same unit as output.
+
+Q15: What is R² Score?
+👉 It shows how well the model fits the data (range: 0 to 1).
+
+Q16: Which is better: high or low RMSE?
+👉 Lower RMSE is better.
+
+Q17: Which is better: high or low R²?
+👉 Higher R² is better.
+
+📉 Conceptual Questions
+
+Q18: What is overfitting?
+👉 Model performs well on training data but poorly on test data.
+
+Q19: What is underfitting?
+👉 Model is too simple and cannot capture patterns in data.
+
+Q20: What assumptions does Linear Regression make?
+👉
+
+Linear relationship
+No multicollinearity
+Homoscedasticity (constant variance)
+Normal distribution of errors
+
+Q21: What is coefficient in Linear Regression?
+👉 It shows how much the target variable changes when a feature changes.
+
+Q22: What is intercept?
+👉 Value of output when all inputs are zero.
+
+📊 Graph & Practical
+
+Q23: Why plot Actual vs Predicted graph?
+👉 To visually check model performance.
+
+Q24: What indicates a good model in graph?
+👉 Points close to straight line.
+
+⚠️ Important Exam Questions
+
+Q25: Why is Boston dataset deprecated?
+👉 Due to ethical concerns and outdated data.
+
+Q26: Alternative to Boston dataset?
+👉 Use datasets from Kaggle or open sources.

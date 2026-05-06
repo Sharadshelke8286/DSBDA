@@ -1,0 +1,283 @@
+# Data Wrangling II - Academic Dataset
+
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+
+# -------------------------------
+# Step 1: Create Academic Dataset
+# -------------------------------
+data = {
+    'Student_ID': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    'Name': ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'],
+    'Marks': [85, 90, np.nan, 45, 200, 78, 88, np.nan, 92, 60],
+    'Attendance': [90, 85, 88, np.nan, 95, 80, 82, 78, 300, 70],
+    'Department': ['CS', 'IT', 'CS', 'IT', 'CS', 'CS', 'IT', 'IT', 'CS', 'CS']
+}
+
+df = pd.DataFrame(data)
+
+print("\nOriginal Dataset:\n", df)
+
+# --------------------------------------------
+# Step 2: Handle Missing Values & Inconsistency
+# --------------------------------------------
+
+# Fill missing Marks with mean
+df['Marks'].fillna(df['Marks'].mean(), inplace=True)
+
+# Fill missing Attendance with median
+df['Attendance'].fillna(df['Attendance'].median(), inplace=True)
+
+# Fix inconsistency: Attendance cannot exceed 100
+df.loc[df['Attendance'] > 100, 'Attendance'] = 100
+
+# Fix inconsistency: Marks cannot exceed 100
+df.loc[df['Marks'] > 100, 'Marks'] = 100
+
+print("\nAfter Handling Missing Values & Inconsistencies:\n", df)
+
+# --------------------------------------------
+# Step 3: Identify Outliers using IQR Method
+# --------------------------------------------
+
+Q1 = df['Marks'].quantile(0.25)
+Q3 = df['Marks'].quantile(0.75)
+IQR = Q3 - Q1
+
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+outliers = df[(df['Marks'] < lower_bound) | (df['Marks'] > upper_bound)]
+
+print("\nOutliers in Marks (IQR Method):\n", outliers)
+
+# --------------------------------------------
+# Step 4: Data Transformation
+# --------------------------------------------
+
+# Log Transformation (handle zero safely)
+df['Marks_Log'] = np.log(df['Marks'] + 1)
+
+# Normalization (Min-Max Scaling)
+scaler = MinMaxScaler()
+df['Marks_Normalized'] = scaler.fit_transform(df[['Marks']])
+
+# Standardization (Z-score Scaling)
+std_scaler = StandardScaler()
+df['Marks_Standardized'] = std_scaler.fit_transform(df[['Marks']])
+
+print("\nFinal Dataset after Transformation:\n", df)
+
+# --------------------------------------------
+# Step 5: Summary
+# --------------------------------------------
+print("\nStatistical Summary:\n", df.describe())
+
+
+1. What is Data Wrangling?
+Answer:
+Data wrangling is the process of cleaning, transforming, and organizing raw data into a structured format for analysis.
+
+2. Why is data wrangling important?
+Answer:
+It improves data quality, removes errors, and ensures accurate analysis and model performance.
+
+3. What are missing values?
+Answer:
+Missing values are data points that are not recorded or unavailable (e.g., NaN).
+
+4. How do you handle missing values?
+Answer:
+
+
+Remove rows/columns
+
+
+Fill using:
+
+
+Mean
+
+
+Median
+
+
+Mode
+
+
+
+
+
+🔹 Conceptual Questions
+5. Difference between mean and median?
+Answer:
+
+
+Mean: Average of all values
+
+
+Median: Middle value
+👉 Median is better when data has outliers
+
+
+
+6. What are inconsistencies in data?
+Answer:
+Values that are incorrect or unrealistic, like marks > 100.
+
+7. How do you fix inconsistent data?
+Answer:
+
+
+Apply constraints (e.g., max = 100)
+
+
+Replace or correct invalid values
+
+
+
+🔹 Outlier Questions
+8. What are outliers?
+Answer:
+Values that significantly differ from other data points.
+
+9. What is IQR method?
+Answer:
+A statistical method to detect outliers using quartiles.
+
+10. Formula of IQR?
+Answer:
+IQR = Q3 − Q1
+
+11. Outlier range formula?
+Answer:
+
+
+Lower Bound = Q1 − 1.5 × IQR
+
+
+Upper Bound = Q3 + 1.5 × IQR
+
+
+
+12. How to handle outliers?
+Answer:
+
+
+Remove
+
+
+Replace
+
+
+Cap values
+
+
+Transform data
+
+
+
+🔹 Transformation Questions
+13. What is data transformation?
+Answer:
+Converting data into a suitable format for analysis.
+
+14. What is normalization?
+Answer:
+Scaling data to range 0 to 1
+
+15. Formula of normalization?
+Answer:
+(x − min) / (max − min)
+
+16. What is standardization?
+Answer:
+Scaling data so that:
+
+
+Mean = 0
+
+
+Standard deviation = 1
+
+
+
+17. Formula of standardization?
+Answer:
+(x − mean) / standard deviation
+
+18. Difference between normalization and standardization?
+Answer:
+
+
+Normalization: Range-based (0–1)
+
+
+Standardization: Mean-based (Z-score)
+
+
+
+19. What is log transformation?
+Answer:
+Applying logarithm to reduce skewness in data.
+
+20. Why use log transformation?
+Answer:
+
+
+Handles large values
+
+
+Makes distribution more normal
+
+
+
+🔹 Practical Questions
+21. Which library is used for data wrangling in Python?
+Answer:
+
+
+Pandas
+
+
+NumPy
+
+
+
+22. How to detect missing values in Pandas?
+Answer:
+df.isnull()
+
+23. How to fill missing values?
+Answer:
+df.fillna()
+
+24. How to find statistical summary?
+Answer:
+df.describe()
+
+25. Which scaler is used for normalization?
+Answer:
+MinMaxScaler
+
+26. Which scaler is used for standardization?
+Answer:
+StandardScaler
+
+🔹 Advanced Viva Questions
+27. What happens if data is not cleaned?
+Answer:
+Results become inaccurate and misleading
+
+28. What is skewness?
+Answer:
+Measure of data distribution asymmetry
+
+29. What is data preprocessing?
+Answer:
+Initial step of preparing data before analysis or ML.
+
+30. What is the difference between data cleaning and data transformation?
+Answer:
+
