@@ -1,0 +1,41 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+iris = sns.load_dataset('iris')
+
+iris.head()
+
+iris.info()
+
+iris.describe()
+
+iris.dtypes
+
+iris.hist(figsize=(10,8))
+plt.suptitle("Histograms of Iris Features")
+plt.show()
+
+plt.figure(figsize=(10,6))
+sns.boxplot(data=iris)
+plt.title("Boxplot of Iris Features")
+plt.show()
+
+plt.figure(figsize=(10,6))
+sns.boxplot(x='species', y='sepal_length', data=iris)
+plt.title("Sepal Length vs Species")
+plt.show()
+
+plt.figure(figsize=(10,6))
+sns.boxplot(x='species', y='petal_length', data=iris)
+plt.title("Petal Length vs Species")
+plt.show()
+
+sns.pairplot(iris, hue='species')
+plt.show()
+
+print("Observations:")
+print("1. Sepal features show near normal distribution.")
+print("2. Petal features show clear separation between species.")
+print("3. Sepal width contains some outliers.")
+print("4. Setosa species is easily distinguishable.")

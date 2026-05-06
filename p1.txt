@@ -1,0 +1,40 @@
+# Step 1: Import Required Libraries
+import pandas as pd
+import numpy as np
+
+# Step 2: Load Dataset from Web Source
+url = "https://raw.githubusercontent.com/datasciencedojo/datasets/master/titanic.csv"
+df = pd.read_csv(url)
+df.head()
+
+# Step 3: Dataset Information
+df.shape
+df.columns
+df.info()
+
+# Step 4: Statistical Description
+df.describe()
+
+# Step 5: Handling Missing Values
+df.isnull().sum()
+df['Age'].fillna(df['Age'].mean(), inplace=True)
+df['Embarked'].fillna(df['Embarked'].mode()[0], inplace=True)
+df.drop(columns=['Cabin'], inplace=True)
+df.isnull().sum()
+
+# Step 6: Data Type Conversion
+df['Age'] = df['Age'].astype(int)
+df['Fare'] = df['Fare'].astype(float)
+df.dtypes
+
+# Step 7: Convert Categorical Variables to Numerical
+df['Sex'] = df['Sex'].map({'male': 0, 'female': 1})
+df = pd.get_dummies(df, columns=['Embarked'])
+df.head()
+
+# Final Output Check
+df.shape
+df.isnull().sum()
+
+# Save Cleaned Dataset
+df.to_csv("cleaned_titanic.csv", index=False)

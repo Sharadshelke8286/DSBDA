@@ -1,0 +1,40 @@
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import MinMaxScaler, StandardScaler
+
+data = {
+    'Student_ID': [1,2,3,4,5,6,7,8,9,10],
+    'Name': ['A','B','C','D','E','F','G','H','I','J'],
+    'Marks': [85,90,np.nan,45,200,78,88,np.nan,92,60],
+    'Attendance': [90,85,88,np.nan,95,80,82,78,300,70],
+    'Department': ['CS','IT','CS','IT','CS','CS','IT','IT','CS','CS']
+}
+
+df = pd.DataFrame(data)
+
+df['Marks'] = df['Marks'].fillna(df['Marks'].mean())
+df['Attendance'] = df['Attendance'].fillna(df['Attendance'].median())
+
+df.loc[df['Marks'] > 100, 'Marks'] = 100
+df.loc[df['Attendance'] > 100, 'Attendance'] = 100
+
+Q1 = df['Marks'].quantile(0.25)
+Q3 = df['Marks'].quantile(0.75)
+IQR = Q3 - Q1
+
+lower_bound = Q1 - 1.5 * IQR
+upper_bound = Q3 + 1.5 * IQR
+
+outliers = df[(df['Marks'] < lower_bound) | (df['Marks'] > upper_bound)]
+
+df['Marks_Log'] = np.log(df['Marks'] + 1)
+
+minmax = MinMaxScaler()
+df['Marks_Normalized'] = minmax.fit_transform(df[['Marks']])
+
+standard = StandardScaler()
+df['Marks_Standardized'] = standard.fit_transform(df[['Marks']])
+
+df.describe()
+df
+outliers

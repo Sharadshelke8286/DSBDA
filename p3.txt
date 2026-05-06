@@ -1,0 +1,37 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+df = sns.load_dataset('iris')
+
+df.head()
+
+df.info()
+
+df.mean(numeric_only=True)
+
+df.median(numeric_only=True)
+
+df.min(numeric_only=True)
+
+df.max(numeric_only=True)
+
+df.var(numeric_only=True)
+
+df.std(numeric_only=True)
+
+df.describe()
+
+grouped = df.groupby('species')
+
+grouped.mean()
+
+grouped.agg(['mean','median','min','max','std','var'])
+
+plt.figure()
+sns.boxplot(x='species', y='petal_length', data=df)
+plt.show()
+
+plt.figure()
+sns.histplot(df['sepal_length'], kde=True)
+plt.show()
